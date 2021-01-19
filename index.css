@@ -1,0 +1,72 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+}
+
+.root {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container-wrapper {
+    height: 200px;
+    width: 500px;
+    display: flex;
+}
+
+.displayed-word-container {
+    position: relative;
+    flex: 4;
+    background-color: aqua;
+}
+
+.lever-container {
+    flex: 1;
+    background-color: purple;
+}
+
+.display {
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.words-container {
+    height: 100%;
+    text-align: center;
+    width: 100%;
+}
+
+.list-of-words {
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.word:nth-child(1) {
+    transform: translateY(-10px);    
+    font-size: 20px;
+    opacity: 0.3;
+}
+
+.word:nth-child(2) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.lever-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
