@@ -1,3 +1,9 @@
+:root {
+    --lever-container-colour: purple;
+    --lever-handle-height: 15px;
+    --lever-slot-height: 70px;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -6,6 +12,21 @@
 
 body {
     height: 100vh;
+    display: flex;
+}
+
+.title-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 0.2;
+    background-color: lightcoral;
+    font-size: 35px;
+}
+
+.title-container h1 {
+    text-align: center;
+    color: white;
 }
 
 .root {
@@ -13,6 +34,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex: 0.8;
 }
 
 .container-wrapper {
@@ -29,12 +51,12 @@ body {
 
 .lever-container {
     flex: 1;
-    background-color: purple;
+    background-color: var(--lever-container-colour);
 }
 
 .display {
     font-weight: bold;
-    font-size: 25px;
+    font-size: 45px;
 }
 
 .words-container {
@@ -53,6 +75,8 @@ body {
 }
 
 .word:nth-child(1) {
+    position: absolute;
+    width: 100%;
     transform: translateY(-10px);    
     font-size: 20px;
     opacity: 0.3;
@@ -69,4 +93,37 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.lever {
+    position: relative;
+    width: 20px;
+    height: var(--lever-slot-height);
+    background-color: black;
+}
+
+.lever__slot {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    width: 5px;
+    height: 100%;
+    background-color: var(--lever-container-colour);
+    border-bottom: 5px solid;
+    border-bottom-color: black;
+}
+
+.lever__handle {
+    position: absolute;
+    height: var(--lever-handle-height);
+    width: 15px;
+    top: 0;
+    background-color: red;
+    border-radius: 50%;
+    transition: top 0.5s;
+}
+
+.moveLever {
+    top: calc(var(--lever-slot-height) - var(--lever-handle-height));
+    cursor: not-allowed;
 }
