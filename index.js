@@ -61,13 +61,18 @@ function getWords() {
 
 function spin() {
     setSpinTime();
-    const randomTime = (Math.random() * 5) * 1000;
-    const spinID = setInterval(() => {
-        addWordsToDOM(shuffleWords(getWords()));
-    }, 100)
+    // const now = performance.now();
+    // const randomTime = (Math.random() * 5) * 1000;
+    // const spinID = setInterval(() => {
+    //     const after = performance.now();
+    //     const timeDiff = +((after - now) / 1000).toFixed(3)
+    //     console.log(timeDiff)
+    //     addWordsToDOMGenerator(timeDiff)
+    // }, 1000)
+    addWordsToDOMGenerator(performance.now());
 
     const spinTimer = setTimeout(() => {
-        clearInterval(spinID);
+        // clearInterval(spinID);
         clearTimeout(spinTimer);
     }, spinTimeMS)
 }
@@ -77,7 +82,45 @@ function spinTime(multiplier=5) {
 }
 
 function setSpinTime() {
-    spinTimeMS = spinTime();
+    spinTimeMS = 10000;
 }
+
+function calculateGradient(x) {
+    return 100 - x**2
+}
+
+// function addWordsToDOMGenerator(timeDiff) {
+//     const calculatedGradient = calculateGradient(timeDiff);
+//     const timeInterval = (1/calculatedGradient)*1000;
+//     for(let i = 0; i < calculatedGradient; i++) {
+//         const t0 = setTimeout(() => {
+//             addWordsToDOM(shuffleWords(getWords()));
+//             clearTimeout(t0)
+//         }, timeInterval)
+//     }
+//     const t0 = setTimeout(() => {
+//         addWordsToDOMGenerator
+//         addWordsToDOM(shuffleWords(getWords()));
+//         clearTimeout(t0)
+//     }, timeInterval)
+// }
+
+function addWordsToDOMGenerator(currentTime) {
+    const now = performance.now();
+    const changeInTime =  now - currentTime;
+    if(changeInTime >= 10000) {
+        return;
+    }
+    const timeInSeconds = changeInTime / 1000;
+    addWordsToDOM(shuffleWords(getWords()));
+    const calculatedGradient = calculateGradient(timeInSeconds);
+    const timeDelay = (10/calculatedGradient)*1000;
+    setTimeout(() => {
+        addWordsToDOMGenerator(currentTime);
+        console.log(timeDelay, timeInSeconds);
+    }, timeDelay)
+}
+
+
 
 addWordsToDOM(words)
