@@ -11,14 +11,11 @@ leverHandle.addEventListener('click', e => {
     e.target.setAttribute('disabled', '');
     e.target.classList.toggle('moveLever');
     spin();
-    const leverTime = setTimeout(() => {
-        clearTimeout(leverTime);
-        const leverUpTime = setTimeout(() => {
-            clearTimeout(leverUpTime);
-            e.target.removeAttribute('disabled');
-            e.target.classList.toggle('moveLever');
-        }, spinTimeMS - 500)
-    }, 500)
+    const leverUpTime = setTimeout(() => {
+        clearTimeout(leverUpTime);
+        e.target.removeAttribute('disabled');
+        e.target.classList.toggle('moveLever');
+    }, spinTimeMS)
 })
 
 function addWordsToDOM(wordsList) {
@@ -28,17 +25,10 @@ function addWordsToDOM(wordsList) {
     const firstThreeWords = wordsList.slice(0, 2);
     firstThreeWords.map((word, index) => {
         const liElement = document.createElement('li');
-        if(index === firstThreeWords.length - 1) {
-            liElement.innerHTML = 
-            `
-                <h2>${word}</h2>
-            `;
-            liElement.classList.add('display');
-        }
-        liElement.innerHTML = 
-        `
-            <h4>${word}</h4>
-        `;
+        // Set to h2 by default which is for the displayed word
+        // Use as a default so we can use terniary 
+        liElement.innerHTML = `<h2>${word}</h2>`
+        index === firstThreeWords.length - 1 ? liElement.classList.add('display') : liElement.innerHTML = `<h4>${word}</h4>`;
         liElement.classList.add('word');
         fragment.appendChild(liElement);
     })
@@ -61,7 +51,7 @@ function getWords() {
 
 function spin() {
     setSpinTime();
-    addWordsToDOMGenerator(performance.now());
+    changeWordsOverTime(performance.now());
 
     const spinTimer = setTimeout(() => {
         clearTimeout(spinTimer);
@@ -80,10 +70,10 @@ function calculateGradient(x) {
     return 100 - x**2
 }
 
-function addWordsToDOMGenerator(currentTime) {
+function changeWordsOverTime(currentTime) {
     const now = performance.now();
     const changeInTime =  now - currentTime;
-    if(changeInTime >= 10000) {
+    if(changeInTime >= spinTimeMS) {
         return;
     }
     const timeInSeconds = changeInTime / 1000;
@@ -91,7 +81,7 @@ function addWordsToDOMGenerator(currentTime) {
     const calculatedGradient = calculateGradient(timeInSeconds);
     const timeDelay = (10/calculatedGradient)*1000;
     setTimeout(() => {
-        addWordsToDOMGenerator(currentTime);
+        changeWordsOverTime(currentTime);
         console.log(timeDelay, timeInSeconds);
     }, timeDelay)
 }
