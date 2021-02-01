@@ -1,0 +1,82 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.scene {
+    height: 131px;
+    width: 100px;
+    perspective: 800px;
+    position: relative;
+}
+
+.carousel, .chosen-word-area {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: transform 1s;
+}
+
+.chosen-word-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    transform: translateX(70px);
+}
+
+.chosen-word {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.carousel__cell {
+    position: absolute;
+    padding: 0 15px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+    border-left: 5px solid #001eff;
+    border-right: 5px solid #001eff;
+}
+
+.carousel__cell:nth-child(1)::before, 
+.carousel__cell:nth-child(2)::before, 
+.carousel__cell:nth-child(3)::before, 
+.carousel__cell:nth-child(4)::before, 
+.carousel__cell:nth-child(5)::before, 
+.carousel__cell:nth-child(6)::before, 
+.carousel__cell:nth-child(7)::before, 
+.carousel__cell:nth-child(8)::before, 
+.carousel__cell:nth-child(9)::before
+{ 
+    content: '';
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background-color: rgb(0, 0, 200);
+    z-index: -1;
+    opacity: 0.5;
+}
