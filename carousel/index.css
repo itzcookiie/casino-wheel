@@ -25,6 +25,11 @@ body {
     position: absolute;
     transform-style: preserve-3d;
     transition: transform 1s;
+} 
+
+.carousel ul {
+    height: 100%;
+    transform-style: preserve-3d;
 }
 
 .chosen-word-area {
